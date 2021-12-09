@@ -1,16 +1,16 @@
 const express = require("express")
 const connect = require("./configs/db")
+require("dotenv").config();
 
-const userController = require("./controllers/user")
 const app = express()
 
-app.use("/user",userController)
 app.use(express.json())
 const  {signup,signin} = require("./controllers/auth")
+const userController = require("./controllers/user")
 
 app.post("/signup",signup)
 app.post("/signin", signin)
-
+app.use("/users", userController)
 
 app.listen(2233, async()=>{
     await connect()
